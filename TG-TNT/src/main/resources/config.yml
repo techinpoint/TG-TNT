@@ -16,8 +16,6 @@ general:
   knockback_multiplier: 1.2
   # Should TNT be able to break obsidian?
   allow_obsidian_break: false
-  # Should TNT ignore water protection?
-  ignore_water_protection: false
   # Should TNT trigger chain reactions?
   chain_reaction: true
   # Should TNT damage blocks?
@@ -48,8 +46,6 @@ types:
     knockback: 1.0
     # Can break obsidian?
     break_obsidian: false
-    # Ignore water protection?
-    ignore_water: false
 
   super:
     name: "&cSuper TNT"
@@ -63,7 +59,6 @@ types:
     damage_blocks: true
     knockback: 1.5
     break_obsidian: false
-    ignore_water: false
 
   mega:
     name: "&4Mega TNT"
@@ -78,8 +73,6 @@ types:
     knockback: 2.0
     break_obsidian: true
 
-
-
   mining:
     name: "&eMining TNT"
     power: 5.0
@@ -92,7 +85,6 @@ types:
     damage_blocks: true
     knockback: 0.5
     break_obsidian: false
-    ignore_water: false
 
 # Plugin Messages (supports color codes with &)
 messages:

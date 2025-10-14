@@ -88,7 +88,6 @@ public class TNTListener implements Listener {
             return;
         }
 
-        // Check if this TNT type can break obsidian
         if (!config.getBoolean("break_obsidian", false)) {
             return;
         }
@@ -96,12 +95,11 @@ public class TNTListener implements Listener {
         int radius = (int) (entity instanceof Explosive ? ((Explosive) entity).getYield() : 4);
         Block block = event.getLocation().getBlock();
 
-        // Break all obsidian blocks in radius
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
                 for (int z = -radius; z <= radius; z++) {
                     Block relativeBlock = block.getRelative(x, y, z);
-                    if (isObsidian(relativeBlock.getType())) {
+                    if (isObsidian(relativeBlock.getType()) && !event.blockList().contains(relativeBlock)) {
                         event.blockList().add(relativeBlock);
                     }
                 }
@@ -133,15 +131,11 @@ public class TNTListener implements Listener {
         boolean damageBlocks = config.getBoolean("damage_blocks", true);
         boolean createFire = config.getBoolean("create_fire", false);
         boolean breakObsidian = config.getBoolean("break_obsidian", false);
-        boolean ignoreWater = config.getBoolean("ignore_water", false);
 
-        // Check if TNT is in a liquid - only cancel if ignoreWater is false
-        if (!ignoreWater) {
-            Block locBlock = tnt.getLocation().getBlock();
-            if (locBlock.isLiquid()) {
-                event.setCancelled(true);
-                return;
-            }
+        Block locBlock = tnt.getLocation().getBlock();
+        if (locBlock.isLiquid()) {
+            event.setCancelled(true);
+            return;
         }
 
         // Handle block damage

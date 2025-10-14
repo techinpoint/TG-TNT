@@ -104,7 +104,6 @@ public class TNTMenu implements Listener {
         List<String> features = new ArrayList<>();
         if (config.getBoolean("create_fire")) features.add("§c⚡ Creates Fire");
         if (config.getBoolean("break_obsidian")) features.add("§5⛏ Breaks Obsidian");
-        if (config.getBoolean("ignore_water")) features.add("§b🌊 Underwater");
         if (!config.getBoolean("damage_players")) features.add("§a✓ Safe for Players");
 
         if (!features.isEmpty()) {

@@ -99,6 +99,12 @@ public class TNTEditor implements Listener {
                         "", "§eLeft Click: §a+0.1", "§eRight Click: §c-0.1",
                         "§eShift+Left: §a+0.5", "§eShift+Right: §c-0.5")));
 
+        editor.setItem(13, createPropertyIcon(Material.FIRE_CHARGE, "§eFire Spread",
+                Arrays.asList("§7Current: §e" + String.format("%.2f", config.getDouble("fire_spread")),
+                        "§7Density of fire blocks created",
+                        "", "§eLeft Click: §a+0.05", "§eRight Click: §c-0.05",
+                        "§eShift+Left: §a+0.2", "§eShift+Right: §c-0.2")));
+
         editor.setItem(14, createToggleIcon(Material.FLINT_AND_STEEL, "§eCreate Fire",
                 config.getBoolean("create_fire")));
 
@@ -110,9 +116,6 @@ public class TNTEditor implements Listener {
 
         editor.setItem(19, createToggleIcon(Material.OBSIDIAN, "§eBreak Obsidian",
                 config.getBoolean("break_obsidian")));
-
-        editor.setItem(20, createToggleIcon(Material.WATER_BUCKET, "§eIgnore Water",
-                config.getBoolean("ignore_water")));
 
         editor.setItem(48, createActionIcon(Material.EMERALD_BLOCK, "§a§lSave Changes",
                 Collections.singletonList("§7Click to save and close")));
@@ -279,6 +282,10 @@ public class TNTEditor implements Listener {
                 adjustKnockback(type, event.isShiftClick() ? 0.5 : 0.1, event.isLeftClick());
                 openPropertyEditor(player, type);
                 break;
+            case 13:
+                adjustFireSpread(type, event.isShiftClick() ? 0.2 : 0.05, event.isLeftClick());
+                openPropertyEditor(player, type);
+                break;
             case 14:
                 toggleProperty(type, "create_fire");
                 openPropertyEditor(player, type);
@@ -293,10 +300,6 @@ public class TNTEditor implements Listener {
                 break;
             case 19:
                 toggleProperty(type, "break_obsidian");
-                openPropertyEditor(player, type);
-                break;
-            case 20:
-                toggleProperty(type, "ignore_water");
                 openPropertyEditor(player, type);
                 break;
             case 48:
@@ -342,6 +345,15 @@ public class TNTEditor implements Listener {
         double current = config.getDouble("knockback");
         double newValue = increase ? current + amount : Math.max(0.0, current - amount);
         tntUtils.updateTypeConfig(type, "knockback", newValue);
+    }
+
+    private void adjustFireSpread(String type, double amount, boolean increase) {
+        ConfigurationSection config = tntUtils.getTypeConfig(type);
+        if (config == null) return;
+
+        double current = config.getDouble("fire_spread");
+        double newValue = increase ? Math.min(1.0, current + amount) : Math.max(0.0, current - amount);
+        tntUtils.updateTypeConfig(type, "fire_spread", newValue);
     }
 
     private void toggleProperty(String type, String property) {
