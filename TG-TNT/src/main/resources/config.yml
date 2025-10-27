@@ -48,8 +48,8 @@ types:
     break_obsidian: false
     # Ignore water protection (allows explosions underwater)?
     ignore_water: false
-    # Remove water blocks in explosion radius?
-    remove_water: false
+    # Water removal radius (0 = disabled, >0 = radius in blocks)
+    water_radius: 0
 
   super:
     name: "&cSuper TNT"
@@ -64,7 +64,7 @@ types:
     knockback: 1.5
     break_obsidian: false
     ignore_water: false
-    remove_water: false
+    water_radius: 0
 
   mega:
     name: "&4Mega TNT"
@@ -79,7 +79,7 @@ types:
     knockback: 2.0
     break_obsidian: true
     ignore_water: true
-    remove_water: true
+    water_radius: 15
 
   mining:
     name: "&eMining TNT"

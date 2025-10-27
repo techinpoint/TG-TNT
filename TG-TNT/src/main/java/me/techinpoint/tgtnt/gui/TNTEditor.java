@@ -120,8 +120,11 @@ public class TNTEditor implements Listener {
         editor.setItem(20, createToggleIcon(Material.WATER_BUCKET, "§eIgnore Water",
                 config.getBoolean("ignore_water")));
 
-        editor.setItem(21, createToggleIcon(Material.BUCKET, "§eRemove Water",
-                config.getBoolean("remove_water")));
+        editor.setItem(21, createPropertyIcon(Material.BUCKET, "§eWater Radius",
+                Arrays.asList("§7Current: §e" + config.getInt("water_radius") + " blocks",
+                        "§70 = disabled",
+                        "", "§eLeft Click: §a+1", "§eRight Click: §c-1",
+                        "§eShift+Left: §a+5", "§eShift+Right: §c-5")));
 
         editor.setItem(48, createActionIcon(Material.EMERALD_BLOCK, "§a§lSave Changes",
                 Collections.singletonList("§7Click to save and close")));
@@ -313,7 +316,7 @@ public class TNTEditor implements Listener {
                 openPropertyEditor(player, type);
                 break;
             case 21:
-                toggleProperty(type, "remove_water");
+                adjustWaterRadius(type, event.isShiftClick() ? 5 : 1, event.isLeftClick());
                 openPropertyEditor(player, type);
                 break;
             case 48:
@@ -376,5 +379,14 @@ public class TNTEditor implements Listener {
 
         boolean current = config.getBoolean(property);
         tntUtils.updateTypeConfig(type, property, !current);
+    }
+
+    private void adjustWaterRadius(String type, int amount, boolean increase) {
+        ConfigurationSection config = tntUtils.getTypeConfig(type);
+        if (config == null) return;
+
+        int current = config.getInt("water_radius");
+        int newValue = increase ? current + amount : Math.max(0, current - amount);
+        tntUtils.updateTypeConfig(type, "water_radius", newValue);
     }
 }

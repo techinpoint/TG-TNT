@@ -106,7 +106,7 @@ public class TNTMenu implements Listener {
         if (config.getBoolean("break_obsidian")) features.add("§5⛏ Breaks Obsidian");
         if (!config.getBoolean("damage_players")) features.add("§a✓ Safe for Players");
         if (config.getBoolean("ignore_water")) features.add("§b🌊 Ignores Water");
-        if (config.getBoolean("remove_water")) features.add("§b💧 Removes Water");
+        if (config.getInt("water_radius") > 0) features.add("§b💧 Water Radius: " + config.getInt("water_radius"));
 
         if (!features.isEmpty()) {
             lore.add("§7Features:");

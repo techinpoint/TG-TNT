@@ -134,7 +134,7 @@ public class TNTListener implements Listener {
         boolean createFire = config.getBoolean("create_fire", false);
         boolean breakObsidian = config.getBoolean("break_obsidian", false);
         boolean ignoreWater = config.getBoolean("ignore_water", false);
-        boolean removeWater = config.getBoolean("remove_water", false);
+        int waterRadius = config.getInt("water_radius", 0);
 
         Location loc = tnt.getLocation();
         Block locBlock = loc.getBlock();
@@ -145,11 +145,10 @@ public class TNTListener implements Listener {
             return;
         }
 
-        if (removeWater && damageBlocks) {
-            double radius = config.getDouble("power", 4.0);
-            for (int x = -(int)radius; x <= radius; x++) {
-                for (int y = -(int)radius; y <= radius; y++) {
-                    for (int z = -(int)radius; z <= radius; z++) {
+        if (waterRadius > 0 && damageBlocks) {
+            for (int x = -waterRadius; x <= waterRadius; x++) {
+                for (int y = -waterRadius; y <= waterRadius; y++) {
+                    for (int z = -waterRadius; z <= waterRadius; z++) {
                         Block block = locBlock.getRelative(x, y, z);
                         if (isBlockLiquidlike(block) && block.getType() == Material.WATER) {
                             block.setType(Material.AIR);
