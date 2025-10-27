@@ -46,6 +46,10 @@ types:
     knockback: 1.0
     # Can break obsidian?
     break_obsidian: false
+    # Ignore water protection (allows explosions underwater)?
+    ignore_water: false
+    # Remove water blocks in explosion radius?
+    remove_water: false
 
   super:
     name: "&cSuper TNT"
@@ -59,6 +63,8 @@ types:
     damage_blocks: true
     knockback: 1.5
     break_obsidian: false
+    ignore_water: false
+    remove_water: false
 
   mega:
     name: "&4Mega TNT"
@@ -72,6 +78,8 @@ types:
     damage_blocks: true
     knockback: 2.0
     break_obsidian: true
+    ignore_water: true
+    remove_water: true
 
   mining:
     name: "&eMining TNT"
@@ -85,6 +93,8 @@ types:
     damage_blocks: true
     knockback: 0.5
     break_obsidian: false
+    ignore_water: false
+    remove_water: false
 
 # Plugin Messages (supports color codes with &)
 messages:

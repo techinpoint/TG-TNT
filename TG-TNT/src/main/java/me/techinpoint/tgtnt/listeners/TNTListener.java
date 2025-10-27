@@ -4,7 +4,9 @@ import me.techinpoint.tgtnt.TGMain;
 import me.techinpoint.tgtnt.utils.TNTUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -131,11 +133,30 @@ public class TNTListener implements Listener {
         boolean damageBlocks = config.getBoolean("damage_blocks", true);
         boolean createFire = config.getBoolean("create_fire", false);
         boolean breakObsidian = config.getBoolean("break_obsidian", false);
+        boolean ignoreWater = config.getBoolean("ignore_water", false);
+        boolean removeWater = config.getBoolean("remove_water", false);
 
-        Block locBlock = tnt.getLocation().getBlock();
-        if (locBlock.isLiquid()) {
+        Location loc = tnt.getLocation();
+        Block locBlock = loc.getBlock();
+
+        if (!ignoreWater && isUnderwater(loc, tntType)) {
             event.setCancelled(true);
+            loc.getWorld().spawnParticle(Particle.SPLASH, loc, 10, 0.5, 0.5, 0.5, 0.1);
             return;
+        }
+
+        if (removeWater && damageBlocks) {
+            double radius = config.getDouble("power", 4.0);
+            for (int x = -(int)radius; x <= radius; x++) {
+                for (int y = -(int)radius; y <= radius; y++) {
+                    for (int z = -(int)radius; z <= radius; z++) {
+                        Block block = locBlock.getRelative(x, y, z);
+                        if (isBlockLiquidlike(block) && block.getType() == Material.WATER) {
+                            block.setType(Material.AIR);
+                        }
+                    }
+                }
+            }
         }
 
         // Handle block damage
@@ -370,5 +391,24 @@ public class TNTListener implements Listener {
         return material == Material.OBSIDIAN ||
                 (Material.getMaterial("CRYING_OBSIDIAN") != null &&
                         material == Material.getMaterial("CRYING_OBSIDIAN"));
+    }
+
+    private static boolean isBlockLiquidlike(Block block) {
+        return block.isLiquid();
+    }
+
+    private static boolean isLocationSurroundedByLiquid(Location loc) {
+        Block block = loc.getBlock();
+        BlockFace[] faces = {BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.UP};
+        for (BlockFace face : faces) {
+            if (isBlockLiquidlike(block.getRelative(face))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isUnderwater(Location loc, String tntType) {
+        return isBlockLiquidlike(loc.getBlock()) || isLocationSurroundedByLiquid(loc);
     }
 }

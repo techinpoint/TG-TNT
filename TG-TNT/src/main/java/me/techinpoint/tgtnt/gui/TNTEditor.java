@@ -117,6 +117,12 @@ public class TNTEditor implements Listener {
         editor.setItem(19, createToggleIcon(Material.OBSIDIAN, "§eBreak Obsidian",
                 config.getBoolean("break_obsidian")));
 
+        editor.setItem(20, createToggleIcon(Material.WATER_BUCKET, "§eIgnore Water",
+                config.getBoolean("ignore_water")));
+
+        editor.setItem(21, createToggleIcon(Material.BUCKET, "§eRemove Water",
+                config.getBoolean("remove_water")));
+
         editor.setItem(48, createActionIcon(Material.EMERALD_BLOCK, "§a§lSave Changes",
                 Collections.singletonList("§7Click to save and close")));
 
@@ -300,6 +306,14 @@ public class TNTEditor implements Listener {
                 break;
             case 19:
                 toggleProperty(type, "break_obsidian");
+                openPropertyEditor(player, type);
+                break;
+            case 20:
+                toggleProperty(type, "ignore_water");
+                openPropertyEditor(player, type);
+                break;
+            case 21:
+                toggleProperty(type, "remove_water");
                 openPropertyEditor(player, type);
                 break;
             case 48:
