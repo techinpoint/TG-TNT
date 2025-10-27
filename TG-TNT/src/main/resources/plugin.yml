@@ -1,0 +1,44 @@
+name: TG-TNT
+version: '1.0.0'
+main: me.techinpoint.tgtnt.TGMain
+api-version: 1.20
+author: Techinpoint Gamerz (TG)
+description: Advanced TNT customization plugin
+website: https://techinpoint.me
+
+commands:
+  tgtnt:
+    description: Main TG-TNT command
+    usage: /tgtnt <give|reload|menu|editor|info>
+    aliases: [tnt, tgtnt]
+    permission: tgtnt.use
+
+permissions:
+  tgtnt.use:
+    description: Allows using basic TG-TNT commands
+    default: true
+  tgtnt.give:
+    description: Allows giving custom TNT to players
+    default: op
+  tgtnt.reload:
+    description: Allows reloading the plugin configuration
+    default: op
+  tgtnt.menu:
+    description: Allows opening the TNT selector menu
+    default: true
+  tgtnt.editor:
+    description: Allows editing TNT types in-game
+    default: op
+  tgtnt.info:
+    description: Allows viewing plugin information
+    default: true
+  tgtnt.*:
+    description: Grants all TG-TNT permissions
+    default: op
+    children:
+      tgtnt.use: true
+      tgtnt.give: true
+      tgtnt.reload: true
+      tgtnt.menu: true
+      tgtnt.editor: true
+      tgtnt.info: true

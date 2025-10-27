@@ -1,0 +1,109 @@
+# TG-TNT Configuration File
+# Plugin by Techinpoint Gamerz (TG)
+# Version: 1.0.0
+
+# General TNT Settings
+general:
+  # Default explosion power (4.0 is vanilla TNT)
+  default_power: 4.0
+  # Fuse time in ticks (20 ticks = 1 second, 40 = 2 seconds)
+  fuse_ticks: 40
+  # Should TNT create fire when exploding?
+  create_fire: false
+  # Should TNT damage players?
+  damage_players: true
+  # Knockback multiplier (1.0 = normal, 2.0 = double knockback)
+  knockback_multiplier: 1.2
+  # Should TNT be able to break obsidian?
+  allow_obsidian_break: false
+  # Should TNT trigger chain reactions?
+  chain_reaction: true
+  # Should TNT damage blocks?
+  damage_blocks: true
+
+# Custom TNT Types
+types:
+  normal:
+    # Display name (supports color codes with &)
+    name: "&fNormal TNT"
+    # Explosion power
+    power: 4.0
+    # Fuse time in ticks
+    fuse: 40
+    # Color code for the type
+    color: "&f"
+    # Description shown in lore
+    description: "&7Standard TNT explosion."
+    # Should this TNT create fire?
+    create_fire: false
+    # Fire spread density (0.0 = no fire, 1.0 = max density)
+    fire_spread: 0.7
+    # Should this TNT damage players?
+    damage_players: true
+    # Should this TNT damage blocks?
+    damage_blocks: true
+    # Knockback multiplier
+    knockback: 1.0
+    # Can break obsidian?
+    break_obsidian: false
+
+  super:
+    name: "&cSuper TNT"
+    power: 8.0
+    fuse: 60
+    color: "&c"
+    description: "&cStronger TNT with wider blast."
+    create_fire: true
+    fire_spread: 0.6
+    damage_players: true
+    damage_blocks: true
+    knockback: 1.5
+    break_obsidian: false
+
+  mega:
+    name: "&4Mega TNT"
+    power: 12.0
+    fuse: 80
+    color: "&4"
+    description: "&4Massive explosion - handle carefully!"
+    create_fire: true
+    fire_spread: 0.8
+    damage_players: true
+    damage_blocks: true
+    knockback: 2.0
+    break_obsidian: true
+
+  mining:
+    name: "&eMining TNT"
+    power: 5.0
+    fuse: 40
+    color: "&e"
+    description: "&eBreaks blocks but doesn't hurt players."
+    create_fire: false
+    fire_spread: 0.7
+    damage_players: false
+    damage_blocks: true
+    knockback: 0.5
+    break_obsidian: false
+
+# Plugin Messages (supports color codes with &)
+messages:
+  prefix: "&6[TG-TNT]&r "
+  reload_success: "&aConfiguration reloaded successfully!"
+  no_permission: "&cYou don't have permission to use this command!"
+  player_not_found: "&cPlayer not found!"
+  invalid_tnt_type: "&cInvalid TNT type! Available types: {types}"
+  tnt_given: "&aGave {amount}x {type} TNT to {player}!"
+  tnt_received: "&aYou received {amount}x {type} TNT!"
+  plugin_info: "&6TG-TNT v1.0.0 &7by &eTechinpoint Gamerz"
+  editor_saved: "&aChanges saved successfully!"
+  invalid_usage: "&cUsage: /tgtnt <give|reload|menu|editor|info>"
+
+# GUI Settings
+gui:
+  menu:
+    title: "&6&lTG-TNT Menu"
+    size: 27
+  editor:
+    title: "&c&lTNT Editor"
+    size: 54
